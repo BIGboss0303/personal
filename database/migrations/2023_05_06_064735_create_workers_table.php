@@ -23,11 +23,14 @@ return new class extends Migration
             $table->string('worker_description')->nullable();
             $table->string('worker_education')->nullable();
             $table->string('worker_experience')->nullable();
-            $table->string('worker_category')->nullable();
-
+            $table->string('worker_category');
             $table->string('worker_skills')->nullable();
             $table->string('worker_birthday')->nullable();
             $table->string('worker_department')->nullable();
+            $table->string('worker_car')->nullable();
+            $table->string('worker_laptop')->nullable();
+            $table->string('worker_image')->nullable();
+
             $table->timestamps();
         });
     }

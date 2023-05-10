@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\File;
+use App\Models\Worker_project;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreFileRequest;
-use App\Http\Requests\UpdateFileRequest;
+use App\Http\Requests\StoreWorker_projectRequest;
+use App\Http\Requests\UpdateWorker_projectRequest;
 
-class FileController extends Controller
+class WorkerProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,7 +28,7 @@ class FileController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreFileRequest $request)
+    public function store($request)
     {
         //
     }
@@ -36,7 +36,7 @@ class FileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(File $file)
+    public function show( $worker_project)
     {
         //
     }
@@ -44,7 +44,7 @@ class FileController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(File $file)
+    public function edit( $worker_project)
     {
         //
     }
@@ -52,7 +52,7 @@ class FileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFileRequest $request, File $file)
+    public function update( $request,$worker_project)
     {
         //
     }
@@ -60,7 +60,7 @@ class FileController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(File $file)
+    public function destroy($worker_project)
     {
         //
     }

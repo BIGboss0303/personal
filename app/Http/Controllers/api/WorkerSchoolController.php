@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\Worker_school;
 use App\Http\Controllers\Controller;
@@ -28,7 +28,7 @@ class WorkerSchoolController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreWorker_schoolRequest $request)
+    public function store($request)
     {
         //
     }
@@ -36,7 +36,7 @@ class WorkerSchoolController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Worker_school $worker_school)
+    public function show($worker_school)
     {
         //
     }
@@ -44,7 +44,7 @@ class WorkerSchoolController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Worker_school $worker_school)
+    public function edit( $worker_school)
     {
         //
     }
@@ -52,7 +52,7 @@ class WorkerSchoolController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateWorker_schoolRequest $request, Worker_school $worker_school)
+    public function update($request, $worker_school)
     {
         //
     }
@@ -60,7 +60,7 @@ class WorkerSchoolController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Worker_school $worker_school)
+    public function destroy($worker_school)
     {
         //
     }

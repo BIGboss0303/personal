@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\School;
+use App\Models\Image;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreSchoolRequest;
-use App\Http\Requests\UpdateSchoolRequest;
+use App\Http\Requests\StoreImageRequest;
+use App\Http\Requests\UpdateImageRequest;
 
-class SchoolController extends Controller
+class ImageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,15 +28,20 @@ class SchoolController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSchoolRequest $request)
+    public function store(StoreImageRequest $request)
     {
-        //
+        if($request->hasFile('image')){
+
+            $validated['image_path']=$request->file('image')->store("images/$request->id",'public');
+            $validated['worker_id']=$request->id;
+        }
+        Image::create($validated);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(School $school)
+    public function show(Image $image)
     {
         //
     }
@@ -44,7 +49,7 @@ class SchoolController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(School $school)
+    public function edit(Image $image)
     {
         //
     }
@@ -52,7 +57,7 @@ class SchoolController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSchoolRequest $request, School $school)
+    public function update(UpdateImageRequest $request, Image $image)
     {
         //
     }
@@ -60,7 +65,7 @@ class SchoolController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(School $school)
+    public function destroy(Image $image)
     {
         //
     }

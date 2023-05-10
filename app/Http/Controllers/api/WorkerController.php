@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Worker;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreWorkerRequest;
 use App\Http\Requests\UpdateWorkerRequest;
@@ -12,9 +14,10 @@ class WorkerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Worker::get();
+        dd($request->category);
+        return Worker::all();
     }
 
     /**
@@ -30,15 +33,44 @@ class WorkerController extends Controller
      */
     public function store(StoreWorkerRequest $request)
     {
-        //
+        // dd($request);
+
+        $validated = $request->validate([
+            'worker_firstname'=>'required',
+            'worker_middlename'=>'required',
+            'worker_lastname'=>'required',
+            'worker_address'=>'required',
+            'worker_phone'=>'required',
+            'worker_email'=>'email',
+            'worker_telegram'=>'',
+            'worker_description'=>'',
+            'worker_education'=>'',
+            'worker_experience'=>'',
+            'worker_category'=>'required',
+            'worker_skills'=>'',
+            'worker_department'=>'',
+            'worker_birthday'=>'',
+
+
+
+        ]);
+
+        if($request->hasFile('avatar')){
+            $validated['worker_image']=$request->file('avatar')->store('avatars','public');
+        }
+        Worker::create($validated);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Worker $worker)
+    public function show($workerId)
     {
-        //
+        $worker= Worker::find($workerId);
+        $schools= $worker->schools;
+        $projects=$worker->projects;
+        return $worker;
+
     }
 
     /**

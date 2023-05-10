@@ -29,7 +29,10 @@ class WorkerFactory extends Factory
             'worker_category'=>fake()->realText(),
             'worker_skills'=>fake()->randomElement(['html,css','js','react','design','php']),
             'worker_birthday'=>fake()->date(),
-            'worker_department'=>fake()->randomElement(['отдел разработки','отдел стажировки','медиа группа','координационный отдел'])
+            'worker_department'=>fake()->randomElement(['отдел разработки','отдел стажировки','медиа группа','координационный отдел']),
+            'worker_car'=>fake()->randomElement([true,false]),
+            'worker_laptop'=>fake()->randomElement([true,false]),
+
 
         ];
     }

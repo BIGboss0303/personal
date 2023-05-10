@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Image;
+use App\Models\Category;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreImageRequest;
-use App\Http\Requests\UpdateImageRequest;
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 
-class ImageController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,7 +28,7 @@ class ImageController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreImageRequest $request)
+    public function store(StoreCategoryRequest $request)
     {
         //
     }
@@ -36,7 +36,7 @@ class ImageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Image $image)
+    public function show(Category $category)
     {
         //
     }
@@ -44,7 +44,7 @@ class ImageController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Image $image)
+    public function edit(Category $category)
     {
         //
     }
@@ -52,7 +52,7 @@ class ImageController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateImageRequest $request, Image $image)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
         //
     }
@@ -60,7 +60,7 @@ class ImageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Image $image)
+    public function destroy(Category $category)
     {
         //
     }
