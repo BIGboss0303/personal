@@ -30,7 +30,13 @@ class FileController extends Controller
      */
     public function store(StoreFileRequest $request)
     {
-        //
+        if($request->hasFile('file')){
+            $validated['file_path']=$request->file('file')->store("files/$request->id",'public');
+            $validated['worker_id']=$request->id;
+            File::create($validated);
+
+        }
+
     }
 
     /**
