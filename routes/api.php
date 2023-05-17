@@ -23,14 +23,22 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::group(['prefix'=>'v1','namespace'=>'App\Http\Controllers\Api\V1'],function(){
 //     Route::get('workers',[WorkerController::class,'index']);
 // });
-
+Route::DELETE('workers/{workerId}/image/{imageId}',function(){
+    return "!";
+});
 Route::GET('workers',[WorkerController::class,'index']);
-// Route::GET('workers/create',[WorkerController::class,'create']);
+Route::GET('workers/create',[WorkerController::class,'create']);
 Route::POST('workers',[WorkerController::class,'store']);
+Route::GET('workers/{id}/edit',[WorkerController::class,'edit']);
+Route::DELETE('workers/{id}/delete',[WorkerController::class,'destroy']);
+
 Route::POST('workers/{id}/image',[ImageController::class,'store']);
+
+
 Route::POST('workers/{id}/file',[FileController::class,'store']);
 
 
 
 
 Route::GET('workers/{id}',[WorkerController::class,'show']);
+Route::PATCH('workers/{id}',[WorkerController::class,'update']);

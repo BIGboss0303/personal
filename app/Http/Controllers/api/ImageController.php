@@ -30,12 +30,13 @@ class ImageController extends Controller
      */
     public function store(StoreImageRequest $request)
     {
-        if($request->hasFile('image')){
 
+        if($request->hasFile('image')){
             $validated['image_path']=$request->file('image')->store("images/$request->id",'public');
             $validated['worker_id']=$request->id;
+            Image::create($validated);
+
         }
-        Image::create($validated);
     }
 
     /**
@@ -65,8 +66,17 @@ class ImageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Image $image)
+    public function destroy($workerId,$image_id)
     {
-        //
+        dd(4);
+        $user=User::find($workerId);
+        $image=$user->images()->find($image_id);
+        if($image){
+            Storage::delete($image->path);
+            $image->delete();
+        }
+        else{
+            return "fuck you";
+        }
     }
 }

@@ -18,7 +18,6 @@ class SchoolFactory extends Factory
     {
         return [
             'school_name' => fake()->company(),
-            'school_location' => fake()->address(),
         ];
     }
 }
