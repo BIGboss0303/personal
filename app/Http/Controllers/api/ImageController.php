@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Image;
+use App\Models\Worker;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreImageRequest;
 use App\Http\Requests\UpdateImageRequest;
 
@@ -66,17 +68,23 @@ class ImageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($workerId,$image_id)
+    public function destroy($workerId,$imageId)
     {
-        dd(4);
-        $user=User::find($workerId);
-        $image=$user->images()->find($image_id);
+        $worker=Worker::find($workerId);
+
+        $image=$worker->images()->find($imageId);
+
         if($image){
-            Storage::delete($image->path);
-            $image->delete();
+            $deleted=Storage::delete("public/$image->image_path");
+            if($deleted){
+                $image->delete();
+            }
+            else {
+                return "Изображение не было удаленно";
+            }
         }
         else{
-            return "fuck you";
+            return "Изображение не найденно";
         }
     }
 }

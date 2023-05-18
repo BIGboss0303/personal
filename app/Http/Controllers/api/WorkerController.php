@@ -47,7 +47,7 @@ class WorkerController extends Controller
      */
     public function store(StoreWorkerRequest $request)
     {
-        dd($request);
+        dd($request->text_area);
         $validator = Validator::make($request->all(), [
             'worker_name'=>'required',
             'worker_address'=>'required',

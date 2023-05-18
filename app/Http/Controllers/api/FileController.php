@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\File;
+use App\Models\Worker;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFileRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdateFileRequest;
 
 class FileController extends Controller
@@ -66,8 +68,18 @@ class FileController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(File $file)
+    public function destroy($workerId,$fileId)
     {
-        //
+        $worker=Worker::find($workerId);
+        $file=$worker->files()->find($fileId);
+
+        if($file){
+            $deleted=Storage::delete("public/$file->file_path");
+            $file->delete();
+        }
+        else{
+            return "Файл не найден";
+
+        }
     }
 }

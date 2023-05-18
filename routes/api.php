@@ -23,9 +23,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::group(['prefix'=>'v1','namespace'=>'App\Http\Controllers\Api\V1'],function(){
 //     Route::get('workers',[WorkerController::class,'index']);
 // });
-Route::DELETE('workers/{workerId}/image/{imageId}',function(){
-    return "!";
-});
+Route::DELETE('workers/{id}/image/{image_id}',[ImageController::class,'destroy']);
+Route::DELETE('workers/{id}/file/{file_id}',[FileController::class,'destroy']);
+
 Route::GET('workers',[WorkerController::class,'index']);
 Route::GET('workers/create',[WorkerController::class,'create']);
 Route::POST('workers',[WorkerController::class,'store']);
