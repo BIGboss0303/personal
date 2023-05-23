@@ -1,4 +1,4 @@
-version:
+version: "3.7"
 services:
   server:
    build: "."
@@ -22,6 +22,7 @@ services:
     environment:
       - MYSQL_USER=${DB_USERNAME}
       - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
       - MYSQL_DATABASE=${DB_DATABASE}
     volumes:
       - ./data:/var/lib/mysql
