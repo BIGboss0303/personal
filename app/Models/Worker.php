@@ -4,11 +4,15 @@ namespace App\Models;
 
 use App\Models\File;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Worker extends Model
 {
     use HasFactory;
+    use SoftDeletes;
+
+
     protected $fillable=['worker_name',
     'worker_address','worker_phone',
     'worker_email','worker_telegram',
@@ -16,7 +20,10 @@ class Worker extends Model
     'worker_experience',
     'worker_skills','worker_birthday',
     'worker_department','worker_image',
-    'worker_car','worker_laptop',];
+    'worker_car','worker_laptop','worker_avatar',
+    'worker_passport_seria','worker_passport_number',
+    'worker_passport_inn','worker_passport_snils',
+    'worker_passport_date','worker_passport_organ','worker_passport_term','worker_passport_code'];
 
 
     public function schools(){

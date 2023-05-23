@@ -26,8 +26,20 @@ return new class extends Migration
             $table->boolean('worker_car')->default(false);
             $table->boolean('worker_laptop')->default(false);
             $table->string('worker_avatar')->nullable();
+            $table->string('worker_passport_seria')->nullable();
+            $table->string('worker_passport_number')->nullable();
+            $table->string('worker_passport_date')->nullable();
+            $table->string('worker_passport_organ')->nullable();
+            $table->string('worker_passport_code')->nullable();
+            $table->string('worker_passport_term')->nullable();
+            $table->string('worker_passport_inn')->nullable();
+            $table->string('worker_passport_snils')->nullable();
+
+
+
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

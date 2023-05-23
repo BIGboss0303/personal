@@ -6,15 +6,17 @@ use App\Models\School;
 use App\Models\Worker;
 use App\Models\Project;
 use App\Models\Category;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use App\Http\Resources\WorkerResource;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\WorkerCollection;
 use App\Http\Requests\StoreWorkerRequest;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\UpdateWorkerRequest;
-use App\Models\Department;
 
 class WorkerController extends Controller
 {
@@ -47,7 +49,6 @@ class WorkerController extends Controller
      */
     public function store(StoreWorkerRequest $request)
     {
-        dd($request->text_area);
         $validator = Validator::make($request->all(), [
             'worker_name'=>'required',
             'worker_address'=>'required',
@@ -58,10 +59,17 @@ class WorkerController extends Controller
             'worker_education'=>'',
             'worker_experience'=>'',
             'worker_skills'=>'',
-            'worker_department'=>'',
             'worker_birthday'=>'',
             'worker_car'=>'',
             'worker_laptop'=>'',
+            'worker_passport_seria'=>'',
+            'worker_passport_number'=>'',
+            'worker_passport_inn'=>'',
+            'worker_passport_snils'=>'',
+            'worker_passport_date'=>'',
+            'worker_passport_organ'=>'',
+            'worker_passport_term'=>'',
+            'worker_passport_code'=>''
 
           ]);
         if ($validator->fails()){
@@ -70,25 +78,30 @@ class WorkerController extends Controller
         $validated=$validator->valid();
         if($request->hasFile('avatar')){
             $validated['worker_avatar']=$request->file('avatar')->store("images/$request->id/avatars",'public');
+
         }
         $worker=Worker::create($validated);
 
         if(isset($request->school)){
-            $school=School::where('school_name',$request->school)->first();
-            $worker->schools()->attach($school->id);
+            foreach($request->school as $school){
+            $worker->schools()->attach($school);
+            }
         }
         if(isset($request->department)){
-            $department=Department::where('department_name',$request->department)->first();
-            $worker->departments()->attach($department->id);
+            foreach($request->department as $department){
+                $worker->departments()->attach($department);
+            }
         }
 
         if(isset($request->project)){
-            $project=Project::where('project_name',$request->project)->first();
-            $worker->projects()->attach($project->id);
+            foreach($request->project as $project){
+            $worker->projects()->attach($project);
+            }
         }
         if(isset($request->category)){
-            $category=Category::where('category_name',$request->category)->first();
-            $worker->categories()->attach($category->id);
+            foreach ($request->category as $category){
+            $worker->categories()->attach($category);
+            }
         }
 
     }
@@ -176,6 +189,8 @@ class WorkerController extends Controller
     public function destroy($worker)
     {
         $worker=Worker::find($worker);
+        File::deleteDirectory(storage_path("app/public/images/$worker->id"));
+        File::deleteDirectory(storage_path("app/public/files/$worker->id"));
         $worker->delete();
     }
 }
