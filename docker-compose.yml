@@ -1,0 +1,31 @@
+version:
+services:
+  server:
+   build: "."
+  container_name: server-php
+  restart: always
+  depends_on:
+    mysql
+
+
+  nginx:
+    container_name: server-nginx
+    restart: always
+    ports:
+      "80:80"
+    depends_on:
+      - server
+      - mysql
+
+  mysql:
+    image: mysql:8.0.33
+    environment:
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+    volumes:
+      - ./data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    env_file:
+      .env
