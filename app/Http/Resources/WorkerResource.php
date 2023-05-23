@@ -15,7 +15,7 @@ class WorkerResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'worker_id'=>$this->id,
+            'id'=>$this->id,
             'worker_name'=>$this->worker_name,
             'worker_address'=>$this->worker_address,
             'worker_phone'=>$this->worker_phone,
@@ -25,7 +25,7 @@ class WorkerResource extends JsonResource
             'worker_education'=>$this->worker_education,
             'worker_experience'=>$this->worker_experience,
             'worker_skills'=>$this->worker_skills,
-            'worker_department'=>$this->worker_department,
+            'worker_avatar'=>$this->worker_avatar,
             'worker_birthday'=>$this->worker_birthday,
             'worker_car'=>$this->worker_car,
             'worker_laptop'=>$this->worker_laptop,

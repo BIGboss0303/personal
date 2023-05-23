@@ -18,7 +18,9 @@ class ImageFactory extends Factory
     {
         return [
             'worker_id'=>fake()->unique()->numberBetween(1,10),
-            'image_path'=>fake()->text()
+            'image_path'=>fake()->text(),
+            'image_name'=>fake()->text(),
+
         ];
     }
 }

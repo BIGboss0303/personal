@@ -26,9 +26,9 @@ class WorkerController extends Controller
     public function index(Request $request)
     {
         $workers=Worker::all();
-        // $categories=$workers->categories;
+        $categories=Category::all();
 		$workers=new WorkerCollection($workers);
-        return $workers;
+        return ['categories'=>$categories,'worker'=>$workers];
     }
 
     /**
@@ -136,7 +136,6 @@ class WorkerController extends Controller
      */
     public function update(UpdateWorkerRequest $request)
     {
-
         $worker=Worker::find($request->id);
         $validator = Validator::make($request->all(), [
             'worker_name'=>'required',
@@ -148,38 +147,54 @@ class WorkerController extends Controller
             'worker_education'=>'',
             'worker_experience'=>'',
             'worker_skills'=>'',
-            'worker_department'=>'',
             'worker_birthday'=>'',
             'worker_car'=>'',
             'worker_laptop'=>'',
+            'worker_passport_seria'=>'',
+            'worker_passport_number'=>'',
+            'worker_passport_inn'=>'',
+            'worker_passport_snils'=>'',
+            'worker_passport_date'=>'',
+            'worker_passport_organ'=>'',
+            'worker_passport_term'=>'',
+            'worker_passport_code'=>''
 
           ]);
-        if ($validator->fails()){
-            return $validator->errors();
-        }
+          
         $validated=$validator->valid();
         if($request->hasFile('avatar')){
+            $deleted=File::delete(storage_path("app/public/$worker->worker_avatar"));
+
             $validated['worker_avatar']=$request->file('avatar')->store("images/$request->id/avatars",'public');
         }
 
         $worker->update($validated);
+        $worker->schools()->detach();
+        $worker->projects()->detach();
+        $worker->departments()->detach();
+        $worker->categories()->detach();
+
 
         if(isset($request->school)){
-            $school=School::where('school_name',$request->school)->first();
-            $worker->schools()->attach($school->id);
+            foreach($request->school as $school){
+                $worker->schools()->attach($school);
+            }
         }
         if(isset($request->department)){
-            $department=Department::where('department_name',$request->department)->first();
-            $worker->departments()->attach($department->id);
+            foreach($request->department as $department){
+                $worker->departments()->attach($department);
+            }
         }
 
         if(isset($request->project)){
-            $project=Project::where('project_name',$request->project)->first();
-            $worker->projects()->attach($project->id);
+            foreach($request->project as $project){
+                $worker->projects()->attach($project);
+            }
         }
         if(isset($request->category)){
-            $category=Category::where('category_name',$request->category)->first();
-            $worker->categories()->attach($category->id);
+            foreach ($request->category as $category){
+                $worker->categories()->attach($category);
+            }
         }
     }
 

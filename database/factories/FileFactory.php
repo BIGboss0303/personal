@@ -18,7 +18,9 @@ class FileFactory extends Factory
     {
         return [
             'worker_id'=>fake()->numberBetween(1,10),
-            'file_path'=>fake()->text()
+            'file_path'=>fake()->text(),
+            'file_name'=>fake()->text(),
+
         ];
     }
 }

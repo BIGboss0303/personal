@@ -17,8 +17,7 @@ class Worker extends Model
     'worker_address','worker_phone',
     'worker_email','worker_telegram',
     'worker_description','worker_education',
-    'worker_experience',
-    'worker_skills','worker_birthday',
+    'worker_experience','worker_skills','worker_birthday',
     'worker_department','worker_image',
     'worker_car','worker_laptop','worker_avatar',
     'worker_passport_seria','worker_passport_number',
@@ -27,16 +26,16 @@ class Worker extends Model
 
 
     public function schools(){
-        return $this->belongsToMany(School::class,'worker_schools');
+        return $this->belongsToMany(School::class,'worker_schools')->withTimestamps();
     }
     public function departments(){
-        return $this->belongsToMany(Department::class,'worker_departments');
+        return $this->belongsToMany(Department::class,'worker_departments')->withTimestamps();
     }
     public function categories(){
-        return $this->belongsToMany(Category::class,'worker_categories');
+        return $this->belongsToMany(Category::class,'worker_categories')->withTimestamps();
     }
     public function projects(){
-        return $this->belongsToMany(Project::class,'worker_projects');
+        return $this->belongsToMany(Project::class,'worker_projects')->withTimestamps();
     }
     public function images(){
         return $this->hasMany(Image::class);

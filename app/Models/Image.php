@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Image extends Model
 {
     use HasFactory;
-    protected $fillable=['image_path','worker_id'];
+    protected $fillable=['image_path','worker_id','image_name'];
     public function workers(){
         return $this->belongsTo(Worker::class);
     }

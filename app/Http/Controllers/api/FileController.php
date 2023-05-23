@@ -34,8 +34,11 @@ class FileController extends Controller
     {
         if($request->hasFile('file')){
             $validated['file_path']=$request->file('file')->store("files/$request->id",'public');
+            $validated['file_name']=$request->file->getClientOriginalName();
             $validated['worker_id']=$request->id;
             File::create($validated);
+            return response()->json(['message' => 'Файл успешно загружен']);
+
 
         }
 

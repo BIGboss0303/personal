@@ -17,28 +17,26 @@ use App\Http\Controllers\Api\WorkerController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-// Route::group(['prefix'=>'v1','namespace'=>'App\Http\Controllers\Api\V1'],function(){
-//     Route::get('workers',[WorkerController::class,'index']);
-// });
-Route::DELETE('workers/{id}/image/{image_id}',[ImageController::class,'destroy']);
-Route::DELETE('workers/{id}/file/{file_id}',[FileController::class,'destroy']);
 
 Route::GET('workers',[WorkerController::class,'index']);
 Route::GET('workers/create',[WorkerController::class,'create']);
 Route::POST('workers',[WorkerController::class,'store']);
 Route::GET('workers/{id}/edit',[WorkerController::class,'edit']);
 Route::DELETE('workers/{id}/delete',[WorkerController::class,'destroy']);
+Route::PUT('workers',[WorkerController::class,'update']);
 
+//Чтобы добавлять и удалять изображения
+// id - id работника, image_id -  id изображения
+// input должен иметь имя image
 Route::POST('workers/{id}/image',[ImageController::class,'store']);
+Route::DELETE('workers/{id}/image/{image_id}',[ImageController::class,'destroy']);
 
+
+//Чтобы добавлять и удалять файлы
+// id - id работника,   file_id -  id файла
+// input должен иметь имя file
 
 Route::POST('workers/{id}/file',[FileController::class,'store']);
-
-
-
+Route::DELETE('workers/{id}/file/{file_id}',[FileController::class,'destroy']);
 
 Route::GET('workers/{id}',[WorkerController::class,'show']);
-Route::PATCH('workers/{id}',[WorkerController::class,'update']);

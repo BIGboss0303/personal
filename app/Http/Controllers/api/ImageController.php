@@ -32,12 +32,12 @@ class ImageController extends Controller
      */
     public function store(StoreImageRequest $request)
     {
-
         if($request->hasFile('image')){
+            $validated['image_name']=$request->image->getClientOriginalName();
             $validated['image_path']=$request->file('image')->store("images/$request->id",'public');
             $validated['worker_id']=$request->id;
             Image::create($validated);
-
+            return response()->json(['message' => 'Изображение успешно загружено']);
         }
     }
 
