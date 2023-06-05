@@ -76,8 +76,8 @@ class WorkerController extends Controller
             return $validator->errors();
         }
         $validated=$validator->valid();
-        if($request->hasFile('avatar')){
-            $validated['worker_avatar']=$request->file('avatar')->store("images/$request->id/avatars",'public');
+        if($request->hasFile('worker_avatar')){
+            $validated['worker_avatar']=$request->file('worker_avatar')->store("images/avatars",'public');
 
         }
         $worker=Worker::create($validated);
@@ -160,19 +160,21 @@ class WorkerController extends Controller
             'worker_passport_code'=>''
 
           ]);
-          
+
         $validated=$validator->valid();
-        if($request->hasFile('avatar')){
+        if($request->hasFile('worker_avatar')){
             $deleted=File::delete(storage_path("app/public/$worker->worker_avatar"));
 
-            $validated['worker_avatar']=$request->file('avatar')->store("images/$request->id/avatars",'public');
+            $validated['worker_avatar']=$request->file('worker_avatar')->store("images/avatars",'public');
         }
 
         $worker->update($validated);
-        $worker->schools()->detach();
+
         $worker->projects()->detach();
         $worker->departments()->detach();
         $worker->categories()->detach();
+        $worker->schools()->detach();
+
 
 
         if(isset($request->school)){
@@ -204,6 +206,7 @@ class WorkerController extends Controller
     public function destroy($worker)
     {
         $worker=Worker::find($worker);
+        Storage::delete("public/$worker->worker_avatar");
         File::deleteDirectory(storage_path("app/public/images/$worker->id"));
         File::deleteDirectory(storage_path("app/public/files/$worker->id"));
         $worker->delete();
